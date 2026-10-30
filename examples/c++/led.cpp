@@ -53,7 +53,7 @@ main(void)
     }
 
     /* sleep for 5 seconds */
-    usleep(5000000);
+    ::sleep(5);
 
     /* set led trigger to heartbeat */
     status = led.trigger(LED_TRIGGER);
