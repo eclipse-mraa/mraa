@@ -1,4 +1,4 @@
-# Copyright (c) 2025 Tom Ingleby, Alex Tereschenko
+# Copyright (c) 2025-2026 Tom Ingleby, Alex Tereschenko
 #
 # This program and the accompanying materials are made available under the terms
 # of the MIT license which is available at
@@ -25,13 +25,13 @@ jobs:
       matrix:
         include:
           - arch: x86_64
-            runs_on: ubuntu-latest
+            runs_on: ubuntu-24.04
             run_tests: true
           - arch: arm
             runs_on: ubuntu-24.04-arm
             run_tests: true
           - arch: MOCK
-            runs_on: ubuntu-latest
+            runs_on: ubuntu-24.04
             run_tests: true
     runs-on: ${{ matrix.runs_on }}
     steps:
