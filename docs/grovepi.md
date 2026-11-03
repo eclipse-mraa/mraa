@@ -37,6 +37,7 @@ rotary potentiometer on A2:
 
 ```c
 #include <stdbool.h>
+#include <unistd.h>
 #include "mraa.h"
 
 void main (int argc, char** argv)
