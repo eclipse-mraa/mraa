@@ -65,11 +65,11 @@ class Spi;
 // Uart::read()
 
 %typemap(in) (char* data, int length) {
-   if (!PyInt_Check($input)) {
+   if (!PyLong_Check($input)) {
        PyErr_SetString(PyExc_ValueError, "Expecting an integer");
        return NULL;
    }
-   $2 = PyInt_AsLong($input);
+   $2 = PyLong_AsLong($input);
    if ($2 < 0) {
        PyErr_SetString(PyExc_ValueError, "Positive integer expected");
        return NULL;
@@ -92,11 +92,11 @@ class Spi;
 // I2c::read()
 
 %typemap(in) (uint8_t *data, int length) {
-   if (!PyInt_Check($input)) {
+   if (!PyLong_Check($input)) {
        PyErr_SetString(PyExc_ValueError, "Expecting an integer");
        return NULL;
    }
-   $2 = PyInt_AsLong($input);
+   $2 = PyLong_AsLong($input);
    if ($2 < 0) {
        PyErr_SetString(PyExc_ValueError, "Positive integer expected");
        return NULL;
@@ -119,11 +119,11 @@ class Spi;
 // Spi::transfer()
 
 %typemap(in) (uint8_t* txBuf, uint8_t* rxBuf, int length) {
-   if (!PyInt_Check($input)) {
+   if (!PyLong_Check($input)) {
        PyErr_SetString(PyExc_ValueError, "Expecting an integer");
        return NULL;
    }
-   $3 = PyInt_AsLong($input);
+   $3 = PyLong_AsLong($input);
    if ($3 < 0) {
        PyErr_SetString(PyExc_ValueError, "Positive integer expected");
        return NULL;
@@ -144,10 +144,15 @@ class Spi;
 
 %include ../mraa.i
 
+%{
+#include "mraa_internal.h"
+
+extern "C" {
+#include "python/mraapy.h"
+}
+%}
+
 %init %{
-    #include "python/mraapy.h"
-    #include "mraa_lang_func.h"
-    extern mraa_lang_func_t* lang_func;
     // Initialise python threads, this allows use to grab the GIL when we are
     // required to do so
     Py_InitializeEx(0);
